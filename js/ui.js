@@ -1,22 +1,14 @@
-// ui.js - Funciones que manipulan el DOM
+// Funciones para manipular el DOM
 
-/**
- * Determina la clase CSS y etiqueta de texto según el estado del personaje.
- * @param {string} status - Estado: 'Alive', 'Dead' o 'unknown'.
- * @returns {{ cssClass: string, label: string }}
- */
+// Devuelve la clase CSS y el texto según el estado del personaje
 function getStatusInfo(status) {
     const normalized = status.toLowerCase();
-    if (normalized === 'alive')  return { cssClass: 'alive',   label: 'Alive' };
-    if (normalized === 'dead')   return { cssClass: 'dead',    label: 'Dead' };
+    if (normalized === 'alive') return { cssClass: 'alive',   label: 'Alive' };
+    if (normalized === 'dead')  return { cssClass: 'dead',    label: 'Dead' };
     return { cssClass: 'unknown', label: 'Unknown' };
 }
 
-/**
- * Genera el HTML de una tarjeta de personaje.
- * @param {Object} character - Objeto con datos del personaje de la API.
- * @returns {string} - String HTML de la tarjeta.
- */
+// Genera el HTML de una tarjeta de personaje
 function createCharacterCard(character) {
     const { cssClass, label } = getStatusInfo(character.status);
 
@@ -35,10 +27,7 @@ function createCharacterCard(character) {
     `;
 }
 
-/**
- * Renderiza la lista de personajes en el contenedor del DOM.
- * @param {Array} characters - Array de objetos personaje.
- */
+// Muestra las tarjetas de personajes en el contenedor
 function renderCharacters(characters) {
     const container = document.getElementById('characters-container');
 
@@ -47,32 +36,17 @@ function renderCharacters(characters) {
         return;
     }
 
-    // Crear todas las tarjetas y renderizarlas de una sola vez
     container.innerHTML = characters.map(createCharacterCard).join('');
 }
 
-/**
- * Actualiza el estado de los controles de paginación.
- * @param {number} currentPage - Página actual.
- * @param {number} totalPages  - Total de páginas disponibles.
- */
+// Actualiza el texto de página y habilita o deshabilita los botones de navegación
 function updatePaginationControls(currentPage, totalPages) {
-    const prevBtn  = document.getElementById('prev-btn');
-    const nextBtn  = document.getElementById('next-btn');
-    const pageInfo = document.getElementById('page-info');
-
-    // Mostrar "Página X de Y"
-    pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
-
-    // Deshabilitar botones según corresponda
-    prevBtn.disabled = currentPage <= 1;
-    nextBtn.disabled = currentPage >= totalPages;
+    document.getElementById('page-info').textContent = `Página ${currentPage} de ${totalPages}`;
+    document.getElementById('prev-btn').disabled = currentPage <= 1;
+    document.getElementById('next-btn').disabled = currentPage >= totalPages;
 }
 
-/**
- * Muestra un mensaje de error visible al usuario.
- * @param {string} message - Texto del error a mostrar.
- */
+// Muestra un mensaje de error en el contenedor
 function showError(message) {
     const container = document.getElementById('characters-container');
     container.innerHTML = `<p class="error-message">⚠️ ${message}</p>`;
