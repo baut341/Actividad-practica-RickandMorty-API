@@ -1,5 +1,6 @@
 // Funciones para manipular el DOM
 
+
 // Devuelve la clase CSS y el texto según el estado del personaje
 function getStatusInfo(status) {
     const normalized = status.toLowerCase();
@@ -12,6 +13,7 @@ function getStatusInfo(status) {
 function createCharacterCard(character) {
     const { cssClass, label } = getStatusInfo(character.status);
 
+    // loading="lazy" hace que las imágenes se carguen solo cuando son visibles
     return `
         <article class="character-card">
             <img src="${character.image}" alt="${character.name}" loading="lazy">
@@ -36,6 +38,7 @@ function renderCharacters(characters) {
         return;
     }
 
+    // Se generan todas las tarjetas juntas y se insertan de una sola vez para mejor rendimiento
     container.innerHTML = characters.map(createCharacterCard).join('');
 }
 
