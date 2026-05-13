@@ -51,5 +51,13 @@ document.getElementById('next-btn').addEventListener('click', function() {
     }
 });
 
+// Boton limpiar: resetea los campos y vuelve a la pagina 1
+document.getElementById('clear-btn').addEventListener('click', function() {
+    document.getElementById('search-form').reset();
+    currentFilters = {};
+    currentPage = 1;
+    loadCharacters();
+});
+
 // Carga inicial al abrir la pagina
 loadCharacters();
