@@ -51,3 +51,15 @@ function showError(message) {
     const container = document.getElementById('characters-container');
     container.innerHTML = `<p class="error-message">⚠️ ${message}</p>`;
 }
+
+// Muestra el indicador de carga mientras se espera la respuesta de la API
+function showLoading() {
+    const container = document.getElementById('characters-container');
+    container.innerHTML = `<p class="loading-message">Cargando personajes...</p>`;
+}
+
+// Oculta el indicador de carga
+function hideLoading() {
+    const loadingMsg = document.querySelector('.loading-message');
+    if (loadingMsg) loadingMsg.remove();
+}

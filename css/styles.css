@@ -243,7 +243,8 @@ footer {
 }
 
 .empty-message,
-.error-message {
+.error-message,
+.loading-message {
     text-align: center;
     grid-column: 1 / -1;
     padding: 3rem;
@@ -255,4 +256,9 @@ footer {
 
 .error-message {
     color: var(--status-dead);
+}
+
+.loading-message {
+    color: var(--text-secondary);
+    font-style: italic;
 }

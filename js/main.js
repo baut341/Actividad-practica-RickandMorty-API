@@ -6,6 +6,7 @@ let currentFilters = {};
 
 // Carga los personajes segun la pagina y filtros actuales
 async function loadCharacters() {
+    showLoading();
     try {
         const data = await fetchCharacters(currentPage, currentFilters);
         totalPages = data.info.pages;
