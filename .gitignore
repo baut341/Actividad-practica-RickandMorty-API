@@ -1,0 +1,13 @@
+# Ignorar archivos PDF
+*.pdf
+
+# Ignorar archivos de texto temporales generados al leer los PDF
+pdf_text.txt
+
+# Ignorar carpetas extrañas
+Actividad-practica-RickandMorty-API/
+
+# Ignorar node_modules y otros por sistema
+node_modules/
+.env
+.DS_Store
