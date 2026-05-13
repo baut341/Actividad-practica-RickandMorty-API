@@ -41,6 +41,7 @@ document.getElementById('prev-btn').addEventListener('click', function() {
     if (currentPage > 1) {
         currentPage--;
         loadCharacters();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 });
 
@@ -49,6 +50,7 @@ document.getElementById('next-btn').addEventListener('click', function() {
     if (currentPage < totalPages) {
         currentPage++;
         loadCharacters();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 });
 
