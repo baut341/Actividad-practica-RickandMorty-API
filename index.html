@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,14 +23,7 @@
                     <option value="unknown">Unknown</option>
                 </select>
 
-                <select id="species-filter" name="species" aria-label="Species filter">
-                    <option value="">All Species</option>
-                    <option value="human">Human</option>
-                    <option value="alien">Alien</option>
-                    <option value="humanoid">Humanoid</option>
-                    <option value="robot">Robot</option>
-                    <option value="unknown">Unknown</option>
-                </select>
+                <input type="text" id="species-filter" name="species" placeholder="Species...">
 
                 <select id="gender-filter" name="gender" aria-label="Gender filter">
                     <option value="">All Genders</option>
@@ -46,15 +39,6 @@
 
         <section class="characters-section">
             <div id="characters-container" class="characters-container">
-                <!-- La lista de tarjetas irá aquí -->
-                <article class="character-card">
-                    <img src="img/placeholder.jpg" alt="Character Image placeholder">
-                    <div class="card-info">
-                        <h2>Character Name</h2>
-                        <p class="status"><span class="status-icon alive"></span>Alive - Species</p>
-                        <p class="origin">Origin Location</p>
-                    </div>
-                </article>
             </div>
             <div class="pagination-controls">
                 <button id="prev-btn" class="pagination-btn" disabled>Anterior</button>
