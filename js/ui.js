@@ -43,11 +43,7 @@ function renderCharacters(characters) {
     const container = document.getElementById('characters-container');
 
     if (!characters || characters.length === 0) {
-        // Mostrar mensaje si no hay resultados
-        container.innerHTML = `
-            <p style="color: var(--text-secondary); text-align: center; grid-column: 1/-1; padding: 3rem;">
-                No se encontraron personajes con esos filtros.
-            </p>`;
+        container.innerHTML = `<p class="empty-message">No se encontraron personajes con esos filtros.</p>`;
         return;
     }
 
@@ -79,8 +75,5 @@ function updatePaginationControls(currentPage, totalPages) {
  */
 function showError(message) {
     const container = document.getElementById('characters-container');
-    container.innerHTML = `
-        <p style="color: #d63d2e; text-align: center; grid-column: 1/-1; padding: 3rem;">
-            ⚠️ ${message}
-        </p>`;
+    container.innerHTML = `<p class="error-message">⚠️ ${message}</p>`;
 }

@@ -230,3 +230,18 @@ footer {
     color: var(--text-primary);
     font-size: 1.1rem;
 }
+
+.empty-message,
+.error-message {
+    text-align: center;
+    grid-column: 1 / -1;
+    padding: 3rem;
+}
+
+.empty-message {
+    color: var(--text-secondary);
+}
+
+.error-message {
+    color: var(--status-dead);
+}
