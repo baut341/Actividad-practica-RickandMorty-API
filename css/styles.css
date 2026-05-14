@@ -173,6 +173,17 @@ footer {
     background-color: var(--accent-hover);
 }
 
+#clear-btn {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--text-secondary);
+}
+
+#clear-btn:hover {
+    color: var(--text-primary);
+    border-color: var(--text-primary);
+}
+
 @media (max-width: 768px) {
     header h1 {
         font-size: 2rem;
@@ -229,4 +240,25 @@ footer {
     font-weight: 500;
     color: var(--text-primary);
     font-size: 1.1rem;
+}
+
+.empty-message,
+.error-message,
+.loading-message {
+    text-align: center;
+    grid-column: 1 / -1;
+    padding: 3rem;
+}
+
+.empty-message {
+    color: var(--text-secondary);
+}
+
+.error-message {
+    color: var(--status-dead);
+}
+
+.loading-message {
+    color: var(--text-secondary);
+    font-style: italic;
 }

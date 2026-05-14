@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rick and Morty Explorer</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
     <header>
         <h1>Rick and Morty Explorer</h1>
@@ -14,47 +16,32 @@
     <main>
         <section class="filters-section">
             <form id="search-form" class="search-form">
-                <input type="text" id="name-filter" name="name" placeholder="Search by name...">
-                
-                <select id="status-filter" name="status" aria-label="Status filter">
-                    <option value="">All Statuses</option>
-                    <option value="alive">Alive</option>
-                    <option value="dead">Dead</option>
-                    <option value="unknown">Unknown</option>
+                <input type="text" id="name-filter" name="name" placeholder="Buscar por nombre...">
+
+                <select id="status-filter" name="status" aria-label="Filtro de estado">
+                    <option value="">Todos los estados</option>
+                    <option value="alive">Vivo</option>
+                    <option value="dead">Muerto</option>
+                    <option value="unknown">Desconocido</option>
                 </select>
 
-                <select id="species-filter" name="species" aria-label="Species filter">
-                    <option value="">All Species</option>
-                    <option value="human">Human</option>
-                    <option value="alien">Alien</option>
-                    <option value="humanoid">Humanoid</option>
-                    <option value="robot">Robot</option>
-                    <option value="unknown">Unknown</option>
-                </select>
+                <input type="text" id="species-filter" name="species" placeholder="Especie...">
 
-                <select id="gender-filter" name="gender" aria-label="Gender filter">
-                    <option value="">All Genders</option>
-                    <option value="female">Female</option>
-                    <option value="male">Male</option>
-                    <option value="genderless">Genderless</option>
-                    <option value="unknown">Unknown</option>
+                <select id="gender-filter" name="gender" aria-label="Filtro de género">
+                    <option value="">Todos los géneros</option>
+                    <option value="female">Femenino</option>
+                    <option value="male">Masculino</option>
+                    <option value="genderless">Sin género</option>
+                    <option value="unknown">Desconocido</option>
                 </select>
                 
-                <button type="submit">Search</button>
+                <button type="submit">Buscar</button>
+                <button type="button" id="clear-btn">Limpiar</button>
             </form>
         </section>
 
         <section class="characters-section">
             <div id="characters-container" class="characters-container">
-                <!-- La lista de tarjetas irá aquí -->
-                <article class="character-card">
-                    <img src="img/placeholder.jpg" alt="Character Image placeholder">
-                    <div class="card-info">
-                        <h2>Character Name</h2>
-                        <p class="status"><span class="status-icon alive"></span>Alive - Species</p>
-                        <p class="origin">Origin Location</p>
-                    </div>
-                </article>
             </div>
             <div class="pagination-controls">
                 <button id="prev-btn" class="pagination-btn" disabled>Anterior</button>
@@ -72,4 +59,5 @@
     <script src="js/ui.js"></script>
     <script src="js/main.js"></script>
 </body>
+
 </html>

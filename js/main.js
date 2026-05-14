@@ -1,76 +1,72 @@
-// main.js - Lógica principal y manejo de eventos
+// Logica principal y eventos
 
-// --- Estado de la aplicación ---
-let currentPage  = 1;  // Página actual
-let totalPages   = 1;  // Total de páginas disponibles
-let currentFilters = {}; // Filtros activos
+// Variables que guardan el estado actual de la aplicación
+let currentPage = 1;
+let totalPages = 1;
+let currentFilters = {};
 
-/**
- * Carga y muestra los personajes aplicando la página y los filtros actuales.
- */
+// Carga los personajes según la página y filtros actuales
 async function loadCharacters() {
+    showLoading();
     try {
-        // Llamar a la API con la página y los filtros actuales
         const data = await fetchCharacters(currentPage, currentFilters);
 
-        // Actualizar el total de páginas según la respuesta de la API
+        // info.pages tiene el total de páginas disponibles según los filtros
         totalPages = data.info.pages;
 
-        // Renderizar las tarjetas de personajes
         renderCharacters(data.results);
-
-        // Actualizar los botones de paginación
         updatePaginationControls(currentPage, totalPages);
-
     } catch (error) {
-        // Mostrar mensaje de error al usuario
-        showError(error.message || 'Ocurrió un error al cargar los personajes.');
-        // Deshabilitar paginación si hay error
-        updatePaginationControls(currentPage, 1);
+        // Si la API falla o no hay resultados, se muestra el error al usuario
+        showError(error.message || 'Ocurrio un error al cargar los personajes.');
+        updatePaginationControls(1, 1);
     }
 }
 
-/**
- * Lee los valores del formulario de búsqueda y actualiza los filtros.
- */
+// Lee el formulario y aplica los filtros desde la página 1
 function applyFilters() {
-    // Obtener los valores de los campos del formulario
     currentFilters = {
         name:    document.getElementById('name-filter').value.trim(),
         status:  document.getElementById('status-filter').value,
-        species: document.getElementById('species-filter').value,
+        species: document.getElementById('species-filter').value.trim(),
         gender:  document.getElementById('gender-filter').value,
     };
-
-    // Reiniciar a la primera página al aplicar un nuevo filtro
+    // Al aplicar nuevos filtros se vuelve a la primera página
     currentPage = 1;
-
     loadCharacters();
 }
 
-// --- Eventos de la interfaz ---
-
-// Evento: enviar el formulario de búsqueda
-document.getElementById('search-form').addEventListener('submit', function (event) {
-    event.preventDefault(); // Evitar que la página se recargue
+// preventDefault evita que el formulario recargue la página al enviarse
+document.getElementById('search-form').addEventListener('submit', function(event) {
+    event.preventDefault();
     applyFilters();
 });
 
-// Evento: clic en botón "Anterior"
-document.getElementById('prev-btn').addEventListener('click', function () {
+// Boton anterior
+document.getElementById('prev-btn').addEventListener('click', function() {
     if (currentPage > 1) {
         currentPage--;
         loadCharacters();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 });
 
-// Evento: clic en botón "Siguiente"
-document.getElementById('next-btn').addEventListener('click', function () {
+// Boton siguiente
+document.getElementById('next-btn').addEventListener('click', function() {
     if (currentPage < totalPages) {
         currentPage++;
         loadCharacters();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 });
 
-// --- Carga inicial al abrir la página ---
+// Boton limpiar: resetea los campos y vuelve a la página 1
+document.getElementById('clear-btn').addEventListener('click', function() {
+    document.getElementById('search-form').reset();
+    currentFilters = {};
+    currentPage = 1;
+    loadCharacters();
+});
+
+// Carga inicial al abrir la página
 loadCharacters();

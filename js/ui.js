@@ -1,25 +1,34 @@
-// ui.js - Funciones que manipulan el DOM
+// Funciones para manipular el DOM
 
-/**
- * Determina la clase CSS y etiqueta de texto según el estado del personaje.
- * @param {string} status - Estado: 'Alive', 'Dead' o 'unknown'.
- * @returns {{ cssClass: string, label: string }}
- */
-function getStatusInfo(status) {
-    const normalized = status.toLowerCase();
-    if (normalized === 'alive')  return { cssClass: 'alive',   label: 'Alive' };
-    if (normalized === 'dead')   return { cssClass: 'dead',    label: 'Dead' };
-    return { cssClass: 'unknown', label: 'Unknown' };
+
+const especiesTrad = {
+    'Human':                 'Humano',
+    'Alien':                 'Alienígena',
+    'Humanoid':              'Humanoide',
+    'Robot':                 'Robot',
+    'Animal':                'Animal',
+    'Disease':               'Enfermedad',
+    'Mythological Creature': 'Criatura mitológica',
+    'Unknown':               'Desconocido',
+};
+
+function traducirEspecie(especie) {
+    return especiesTrad[especie] || especie;
 }
 
-/**
- * Genera el HTML de una tarjeta de personaje.
- * @param {Object} character - Objeto con datos del personaje de la API.
- * @returns {string} - String HTML de la tarjeta.
- */
+// Devuelve la clase CSS y el texto según el estado del personaje
+function getStatusInfo(status) {
+    const normalized = status.toLowerCase();
+    if (normalized === 'alive') return { cssClass: 'alive',   label: 'Vivo' };
+    if (normalized === 'dead')  return { cssClass: 'dead',    label: 'Muerto' };
+    return { cssClass: 'unknown', label: 'Desconocido' };
+}
+
+// Genera el HTML de una tarjeta de personaje
 function createCharacterCard(character) {
     const { cssClass, label } = getStatusInfo(character.status);
 
+    // loading="lazy" hace que las imágenes se carguen solo cuando son visibles
     return `
         <article class="character-card">
             <img src="${character.image}" alt="${character.name}" loading="lazy">
@@ -27,7 +36,7 @@ function createCharacterCard(character) {
                 <h2>${character.name}</h2>
                 <p class="status">
                     <span class="status-icon ${cssClass}"></span>
-                    ${label} - ${character.species}
+                    ${label} - ${traducirEspecie(character.species)}
                 </p>
                 <p class="origin">${character.origin.name}</p>
             </div>
@@ -35,52 +44,40 @@ function createCharacterCard(character) {
     `;
 }
 
-/**
- * Renderiza la lista de personajes en el contenedor del DOM.
- * @param {Array} characters - Array de objetos personaje.
- */
+// Muestra las tarjetas de personajes en el contenedor
 function renderCharacters(characters) {
     const container = document.getElementById('characters-container');
 
     if (!characters || characters.length === 0) {
-        // Mostrar mensaje si no hay resultados
-        container.innerHTML = `
-            <p style="color: var(--text-secondary); text-align: center; grid-column: 1/-1; padding: 3rem;">
-                No se encontraron personajes con esos filtros.
-            </p>`;
+        container.innerHTML = `<p class="empty-message">No se encontraron personajes con esos filtros.</p>`;
         return;
     }
 
-    // Crear todas las tarjetas y renderizarlas de una sola vez
+    // Se generan todas las tarjetas juntas y se insertan de una sola vez para mejor rendimiento
     container.innerHTML = characters.map(createCharacterCard).join('');
 }
 
-/**
- * Actualiza el estado de los controles de paginación.
- * @param {number} currentPage - Página actual.
- * @param {number} totalPages  - Total de páginas disponibles.
- */
+// Actualiza el texto de página y habilita o deshabilita los botones de navegación
 function updatePaginationControls(currentPage, totalPages) {
-    const prevBtn  = document.getElementById('prev-btn');
-    const nextBtn  = document.getElementById('next-btn');
-    const pageInfo = document.getElementById('page-info');
-
-    // Mostrar "Página X de Y"
-    pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
-
-    // Deshabilitar botones según corresponda
-    prevBtn.disabled = currentPage <= 1;
-    nextBtn.disabled = currentPage >= totalPages;
+    document.getElementById('page-info').textContent = `Página ${currentPage} de ${totalPages}`;
+    document.getElementById('prev-btn').disabled = currentPage <= 1;
+    document.getElementById('next-btn').disabled = currentPage >= totalPages;
 }
 
-/**
- * Muestra un mensaje de error visible al usuario.
- * @param {string} message - Texto del error a mostrar.
- */
+// Muestra un mensaje de error en el contenedor
 function showError(message) {
     const container = document.getElementById('characters-container');
-    container.innerHTML = `
-        <p style="color: #d63d2e; text-align: center; grid-column: 1/-1; padding: 3rem;">
-            ⚠️ ${message}
-        </p>`;
+    container.innerHTML = `<p class="error-message">⚠️ ${message}</p>`;
+}
+
+// Muestra el indicador de carga mientras se espera la respuesta de la API
+function showLoading() {
+    const container = document.getElementById('characters-container');
+    container.innerHTML = `<p class="loading-message">Cargando personajes...</p>`;
+}
+
+// Oculta el indicador de carga
+function hideLoading() {
+    const loadingMsg = document.querySelector('.loading-message');
+    if (loadingMsg) loadingMsg.remove();
 }
