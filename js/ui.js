@@ -1,12 +1,27 @@
 // Funciones para manipular el DOM
 
 
+const especiesTrad = {
+    'Human':                 'Humano',
+    'Alien':                 'Alienígena',
+    'Humanoid':              'Humanoide',
+    'Robot':                 'Robot',
+    'Animal':                'Animal',
+    'Disease':               'Enfermedad',
+    'Mythological Creature': 'Criatura mitológica',
+    'Unknown':               'Desconocido',
+};
+
+function traducirEspecie(especie) {
+    return especiesTrad[especie] || especie;
+}
+
 // Devuelve la clase CSS y el texto según el estado del personaje
 function getStatusInfo(status) {
     const normalized = status.toLowerCase();
-    if (normalized === 'alive') return { cssClass: 'alive',   label: 'Alive' };
-    if (normalized === 'dead')  return { cssClass: 'dead',    label: 'Dead' };
-    return { cssClass: 'unknown', label: 'Unknown' };
+    if (normalized === 'alive') return { cssClass: 'alive',   label: 'Vivo' };
+    if (normalized === 'dead')  return { cssClass: 'dead',    label: 'Muerto' };
+    return { cssClass: 'unknown', label: 'Desconocido' };
 }
 
 // Genera el HTML de una tarjeta de personaje
@@ -21,7 +36,7 @@ function createCharacterCard(character) {
                 <h2>${character.name}</h2>
                 <p class="status">
                     <span class="status-icon ${cssClass}"></span>
-                    ${label} - ${character.species}
+                    ${label} - ${traducirEspecie(character.species)}
                 </p>
                 <p class="origin">${character.origin.name}</p>
             </div>
